@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Ivan-Mustiere/DockerProject'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'docker build -t monapp .'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Ajoutez ici vos tests automatisés
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
+    }
+}
