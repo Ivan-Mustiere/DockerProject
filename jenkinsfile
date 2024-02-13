@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment {
+        DOCKER_IMAGE = 'projetg4'
+        DOCKER_CREDENTIALS_ID = '?'
+    } 
     stages {
         stage('Checkout') {
             steps {
@@ -9,25 +12,21 @@ pipeline {
         }
         stage('Compilation') {
             steps {
-                // Ajoutez ici les commandes de compilation de votre code source
                 sh 'mvn clean install' // Exemple pour un projet Java avec Maven
             }
         }
         stage('Construction de image Docker') {
             steps {
                 script {
-                    // Construction de l'image Docker
                     docker.build('projet_g4')
                 }
             }
         }
         stage('Déploiement du conteneur Docker') {
             steps {
-                // Déploiement du conteneur Docker
                 script {
                     docker.withRegistry('https://registry.example.com', 'credentials-id') {
-                        // Déployez l'image sur un registre Docker privé ou public
-                        docker.image('monapp').push('latest')
+                        docker.image('projet_g4').push('latest')
                     }
                 }
             }
