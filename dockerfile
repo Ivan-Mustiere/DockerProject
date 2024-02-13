@@ -6,10 +6,10 @@ WORKDIR /app
 
 # Copier les fichiers nécessaires dans le conteneur
 COPY requirements.txt .
-COPY votre_script.py .
+COPY script.py .
 
 # Installer les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Exécuter le script Python lorsque le conteneur démarre
-CMD ["python", "votre_script.py"]
+CMD ["python"]
