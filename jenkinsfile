@@ -4,17 +4,32 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Ivan-Mustiere/DockerProject'
+                git 'https://github.com/votre-utilisateur/votre-projet.git'
             }
         }
-        stage('Build') {
+        stage('Compilation') {
             steps {
-                sh 'docker build -t monapp .'
+                // Ajoutez ici les commandes de compilation de votre code source
+                sh 'mvn clean install' // Exemple pour un projet Java avec Maven
             }
         }
-        stage('Deploy') {
+        stage('Construction de image Docker') {
             steps {
-                sh 'docker-compose up -d'
+                script {
+                    // Construction de l'image Docker
+                    docker.build('monapp')
+                }
+            }
+        }
+        stage('Déploiement du conteneur Docker') {
+            steps {
+                // Déploiement du conteneur Docker
+                script {
+                    docker.withRegistry('https://registry.example.com', 'credentials-id') {
+                        // Déployez l'image sur un registre Docker privé ou public
+                        docker.image('monapp').push('latest')
+                    }
+                }
             }
         }
     }
