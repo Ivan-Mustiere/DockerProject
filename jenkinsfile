@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/votre-utilisateur/votre-projet.git'
+                git 'https://github.com/Ivan-Mustiere/DockerProject'
             }
         }
         stage('Compilation') {
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Construction de l'image Docker
-                    docker.build('monapp')
+                    docker.build('projet_g4')
                 }
             }
         }
