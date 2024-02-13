@@ -2,8 +2,11 @@ pipeline {
     agent any
 
     stages {
-    
-        
+stage('Checkout') {
+            steps {
+                git 'https://github.com/Ivan-Mustiere/DockerProject.git'
+            }
+  
         stage('Construction de image Docker') {
             steps {
                 script {
